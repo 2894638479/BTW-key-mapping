@@ -1,3 +1,8 @@
+# key-mapping
+add settings to remap 1-9 number keys and F5
+
+
+
 # Fabric Example Mod
 
 - [Quick start guide](#quick-start-guide)
