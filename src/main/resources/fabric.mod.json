@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "key_remapping",
   "version": "${version}",
-  "name": "Example Mod",
+  "name": "KeyMapping",
   "description": "This is an example description! Tell everyone what your mod is about!",
   "authors": [
     "Me!"
@@ -12,21 +12,17 @@
     "sources": "https://github.com/Legacy-Fabric/fabric-example-mod"
   },
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/key_mapping/icon.png",
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "net.fabricmc.example.ExampleMod"
-    ],
-    "btw:addon": [
-      "btw.community.example.ExampleAddon"
-    ]
+    "main": [],
+    "btw:addon": []
   },
   "custom": {
     "btw:addon_prefix": "EX"
   },
   "mixins": [
-    "modid.mixins.json"
+    "key_mapping.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.14.19",
