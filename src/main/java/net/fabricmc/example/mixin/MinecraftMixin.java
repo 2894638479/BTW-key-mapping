@@ -1,10 +1,7 @@
 package net.fabricmc.example.mixin;
 
 import net.fabricmc.example.KeyMapping;
-import net.minecraft.src.EntityClientPlayerMP;
-import net.minecraft.src.GuiScreen;
-import net.minecraft.src.KeyBinding;
-import net.minecraft.src.Minecraft;
+import net.minecraft.src.*;
 import org.lwjgl.input.Keyboard;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,14 +16,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MinecraftMixin {
     @Shadow public EntityClientPlayerMP thePlayer;
     @Shadow public GuiScreen currentScreen;
+    @Shadow public GameSettings gameSettings;
     @Unique int itemIndex;
+    @Unique int thirdPersonView;
     @Inject(at = @At("HEAD"),method = "runTick")
     void KeyMapping$tickHead(CallbackInfo ci){
         if(thePlayer != null) itemIndex = thePlayer.inventory.currentItem;
+        if(gameSettings != null) thirdPersonView = gameSettings.thirdPersonView;
     }
     @Inject(at = @At("RETURN"),method = "runTick")
     void KeyMapping$tickEnd(CallbackInfo ci){
         if(thePlayer != null) thePlayer.inventory.currentItem = itemIndex;
+        if(gameSettings != null) gameSettings.thirdPersonView = thirdPersonView;
     }
     @Redirect(
         method = "runTick",
@@ -43,6 +44,10 @@ public class MinecraftMixin {
                     if (Keyboard.getEventKey() == KeyMapping.getNum(i).keyCode) {
                         itemIndex = i - 1;
                     }
+                }
+                if(Keyboard.getEventKey() == KeyMapping.F5.keyCode){
+                    thirdPersonView++;
+                    if(thirdPersonView > 2) thirdPersonView = 0;
                 }
             }
         }

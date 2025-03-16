@@ -25,23 +25,17 @@ public abstract class GameSettingsMixin {
     @Unique
     private void KeyMappings$addKeyBinds(){
         int l = keyBindings.length;
-        keyBindings = Arrays.copyOf(keyBindings, keyBindings.length + 9);
-        for (int i = 1;i <= 9;i++){
-            keyBindings[l+i-1] = KeyMapping.getNum(i);
+        keyBindings = Arrays.copyOf(keyBindings, keyBindings.length + KeyMapping.allKeys.length);
+        for (int i = 0;i < KeyMapping.allKeys.length;i++){
+            keyBindings[l+i] = KeyMapping.allKeys[i];
         }
     }
     @Inject(method = "<init>()V", at = @At(value = "TAIL"))
     private void KeyMapping$initTail(CallbackInfo ci) {
         KeyMappings$addKeyBinds();
     }
-    @Redirect(
-        method = "<init>(Lnet/minecraft/src/Minecraft;Ljava/io/File;)V",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/src/GameSettings;loadOptions()V"
-        )
-    )
-    private void KeyMapping$initTailLoadOpts(GameSettings instance) {
+    @Inject(method = "<init>(Lnet/minecraft/src/Minecraft;Ljava/io/File;)V", at = @At(value = "TAIL"))
+    private void KeyMapping$initTailLoadOpts(Minecraft par1Minecraft, File par2File, CallbackInfo ci) {
         KeyMappings$addKeyBinds();
         loadOptions();
     }
