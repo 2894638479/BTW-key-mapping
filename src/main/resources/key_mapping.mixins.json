@@ -6,8 +6,10 @@
   "mixins": [
   ],
   "client": [
-    "MinecraftMixin",
-    "GameSettingsMixin"
+    "GameSettingsMixin",
+    "GuiContainerMixin",
+    "GuiScreenMixin",
+    "MinecraftMixin"
   ],
   "injectors": {
     "defaultRequire": 1

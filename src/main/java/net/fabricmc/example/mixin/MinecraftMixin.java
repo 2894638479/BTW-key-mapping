@@ -29,10 +29,34 @@ public class MinecraftMixin {
         if(thePlayer != null) itemIndex = thePlayer.inventory.currentItem;
         if(gameSettings != null) thirdPersonView = gameSettings.thirdPersonView;
     }
-    @Inject(at = @At("RETURN"),method = "runTick")
-    void KeyMapping$tickEnd(CallbackInfo ci){
-        if(thePlayer != null) thePlayer.inventory.currentItem = itemIndex;
-        if(gameSettings != null) gameSettings.thirdPersonView = thirdPersonView;
+    @Redirect(
+            method = "runTick",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lorg/lwjgl/input/Keyboard;next()Z"
+            )
+    )
+    private boolean KeyMapping$replaceKeyboardNext() {
+        boolean result = Keyboard.next();
+        if(!result){
+            if(thePlayer != null) thePlayer.inventory.currentItem = itemIndex;
+            if(gameSettings != null) gameSettings.thirdPersonView = thirdPersonView;
+            return false;
+        }
+        if (currentScreen == null || currentScreen.allowUserInput) {
+            if (Keyboard.getEventKeyState()) {
+                for (int i = 1; i <= 9; i++) {
+                    if (Keyboard.getEventKey() == KeyMapping.getNum(i).keyCode) {
+                        itemIndex = i - 1;
+                    }
+                }
+                if(Keyboard.getEventKey() == KeyMapping.F5.keyCode){
+                    thirdPersonView++;
+                    if(thirdPersonView > 2) thirdPersonView = 0;
+                }
+            }
+        }
+        return true;
     }
 
     @Redirect(
@@ -56,30 +80,6 @@ public class MinecraftMixin {
                         itemIndex++;
                         if(itemIndex >= 9) itemIndex -= 9;
                     }
-                }
-            }
-        }
-        return result;
-    }
-    @Redirect(
-            method = "runTick",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lorg/lwjgl/input/Keyboard;next()Z"
-            )
-    )
-    private boolean KeyMapping$replaceKeyboardNext() {
-        boolean result = Keyboard.next();
-        if (currentScreen == null || currentScreen.allowUserInput) {
-            if (result && Keyboard.getEventKeyState()) {
-                for (int i = 1; i <= 9; i++) {
-                    if (Keyboard.getEventKey() == KeyMapping.getNum(i).keyCode) {
-                        itemIndex = i - 1;
-                    }
-                }
-                if(Keyboard.getEventKey() == KeyMapping.F5.keyCode){
-                    thirdPersonView++;
-                    if(thirdPersonView > 2) thirdPersonView = 0;
                 }
             }
         }
