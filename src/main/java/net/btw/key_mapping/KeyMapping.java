@@ -1,4 +1,4 @@
-package net.fabricmc.example;
+package net.btw.key_mapping;
 
 import net.minecraft.src.KeyBinding;
 import org.lwjgl.input.Keyboard;

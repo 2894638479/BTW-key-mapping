@@ -1,11 +1,10 @@
-package net.fabricmc.example.mixin;
+package net.btw.key_mapping.mixin;
 
-import net.fabricmc.example.interfaces.McAccessor;
+import net.btw.key_mapping.interfaces.McAccessor;
 import net.minecraft.src.GuiScreen;
 import net.minecraft.src.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(GuiScreen.class)
 public class GuiScreenMixin implements McAccessor {

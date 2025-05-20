@@ -1,7 +1,7 @@
-package net.fabricmc.example.mixin;
+package net.btw.key_mapping.mixin;
 
-import net.fabricmc.example.KeyMapping;
-import net.fabricmc.example.interfaces.McAccessor;
+import net.btw.key_mapping.interfaces.McAccessor;
+import net.btw.key_mapping.KeyMapping;
 import net.minecraft.src.GuiContainer;
 import net.minecraft.src.Minecraft;
 import net.minecraft.src.Slot;

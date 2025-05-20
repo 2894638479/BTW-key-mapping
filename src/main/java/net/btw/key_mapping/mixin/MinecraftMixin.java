@@ -1,6 +1,6 @@
-package net.fabricmc.example.mixin;
+package net.btw.key_mapping.mixin;
 
-import net.fabricmc.example.KeyMapping;
+import net.btw.key_mapping.KeyMapping;
 import net.minecraft.src.*;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;

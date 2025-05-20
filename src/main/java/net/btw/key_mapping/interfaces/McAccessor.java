@@ -1,4 +1,4 @@
-package net.fabricmc.example.interfaces;
+package net.btw.key_mapping.interfaces;
 
 import net.minecraft.src.Minecraft;
 

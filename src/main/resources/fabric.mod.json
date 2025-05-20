@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "key_remapping",
+  "id": "key-remapping",
   "version": "${version}",
   "name": "KeyMapping",
   "description": "This is an example description! Tell everyone what your mod is about!",
